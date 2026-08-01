@@ -10,6 +10,36 @@
     <link rel="icon" type="image/png" href="images/uw-crest-color-web-digital.png">
     <title>Jonathan Gregory</title>
     <style type="text/css">
+    :root {
+        --bg: #121212;
+        --surface: #1c1c1e;
+        --text: #e8e8e8;
+        --navbar-bg: var(--surface);
+        --navbar-border: var(--accent);
+        --accent: #ff5a5f;
+        --accent-hover: #ff8285;
+        --accent-contrast: #121212;
+        --tag-conference: #7aa2ff;
+        --tag-journal: #6fcf97;
+        --tag-preprint: #ffd166;
+    }
+    [data-theme="light"] {
+        --bg: #ffffff;
+        --surface: #ffffff;
+        --text: #212529;
+        --navbar-bg: #C5050C;
+        --accent: #C5050C;
+        --accent-hover: #9b0309;
+        --accent-contrast: #ffffff;
+        --tag-conference: #2f6fed;
+        --tag-journal: #1e874b;
+        --tag-preprint: #a86400;
+    }
+    body {
+        background-color: var(--bg);
+        color: var(--text);
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
     img.profile {
         border-radius: 50%;
         width: 240px;
@@ -19,6 +49,7 @@
     .lead {
         font-size: 0.95rem;
         text-align: left;
+        color: var(--text);
     }
     .subtitle {
         font-size: 1.7rem;
@@ -32,32 +63,79 @@
         font-size: 1.2rem;
         text-align: left;
     }
+    .links {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
     .links a {
         display: inline-block;
         margin: 3px 4px 3px 0;
         padding: 2px 10px;
         font-size: 0.85rem;
-        border: 1px solid #C5050C;
+        border: 1px solid var(--accent);
         border-radius: 20px;
-        color: #C5050C;
+        color: var(--accent);
         text-decoration: none;
     }
     .links a:hover {
-        background-color: #C5050C;
-        color: #ffffff;
+        background-color: var(--accent);
+        color: var(--accent-contrast);
         text-decoration: none;
     }
     a {
-        color: #C5050C;
+        color: var(--accent);
     }
     a:hover {
-        color: #9b0309;
+        color: var(--accent-hover);
     }
     hr {
-        border-color: #C5050C;
+        border-color: var(--accent);
         opacity: 0.3;
     }
+    .navbar {
+        border-bottom: 2px solid var(--navbar-border);
+    }
+    .paper-tag {
+        display: inline-block;
+        margin: 3px 4px 3px 0;
+        padding: 2px 10px;
+        font-size: 0.85rem;
+        border: 1px solid currentColor;
+        border-radius: 20px;
+        vertical-align: middle;
+    }
+    .paper-tag.conference {
+        color: var(--tag-conference);
+    }
+    .paper-tag.journal {
+        color: var(--tag-journal);
+    }
+    .paper-tag.preprint {
+        color: var(--tag-preprint);
+    }
+    .theme-toggle {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        color: #ffffff;
+        border-radius: 20px;
+        padding: 4px 12px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        line-height: 1.2;
+    }
+    .theme-toggle:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+    }
     </style>
+    <script>
+      // Applied before first paint to avoid a flash of the wrong theme.
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var theme = stored === 'light' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -69,14 +147,14 @@
 <body style="padding-top: 60px;">
 
     <!-- Navigation Menu -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #C5050C;">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: var(--navbar-bg);">
         <div class="container">
             <a class="navbar-brand" href="#">Jonathan Gregory</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav align-items-lg-center">
                     <li class="nav-item">
                         <a class="nav-link" href="#about-me">About Me</a>
                     </li>
@@ -91,6 +169,11 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#professional-activities">Professional Activities</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">🌙 Dark</button>
                     </li>
                 </ul>
             </div>
@@ -146,11 +229,21 @@
                     <h3 class="subtitle">Selected Papers</h3>
                     <ul class="lead" style="list-style: none; padding-left: 0;">
                         <li style="margin-bottom: 16px;">
+                            <b>MESA: Prioritizing Vulnerable Communication Channels for Securing Multi-Agent Systems</b><br>
+                            Kunyang Li, Kyle Domico, <b>Jonathan Gregory</b>, Patrick McDaniel<br>
+                            <i>In submission, 2026</i><br>
+                            <div class="links" style="margin-top: 4px;">
+                                <a href="https://arxiv.org/abs/2606.30602">Paper</a>
+                                <span class="paper-tag preprint">Preprint</span>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 16px;">
                             <b>Activation-Free Backbones for Image Recognition: Polynomial Alternatives for Spatial and Channel Mixing</b><br>
-                            Jeffrey Wang, Jonathan Gregory, Grigorios Chrysos<br>
+                            Jeffrey Wang,  <b>Jonathan Gregory</b>, Grigorios Chrysos<br>
                             <i>International Conference on Machine Learning (ICML), 2026</i><br>
                             <div class="links" style="margin-top: 4px;">
                                 <a href="https://icml.cc/virtual/2026/poster/65238">Paper</a>
+                                <span class="paper-tag conference">Conference</span>
                             </div>
                         </li>
                     </ul>
@@ -161,7 +254,22 @@
                 <div id="selected-awards">
                     <h3 class="subtitle">Selected Awards</h3>
                     <ul class="lead">
-                        <li><b>NSF Graduate Research Fellowship (GRFP),</b> 2026</li>
+                        <li><b>Graduate Research Fellowship (GRFP), U.S. National Science Foundation,</b> 2026</li>
+                    </ul>
+                    <ul class="lead">
+                        <li><b>Academic Excellence Award, Central Michigan University Honors Program,</b> 2025</li>
+                    </ul>
+                    <ul class="lead">
+                        <li><b>President’s Award for Undergraduate Research and Creative Accomplishments, Central Michigan University,</b> 2025</li>
+                    </ul>
+                    <ul class="lead">
+                        <li><b>Richtmeyer-Foust Award, Central Michigan University Department of Mathematics,</b> 2025</li>
+                    </ul>
+                    <ul class="lead">
+                        <li><b>Board of Trustess Award, Central Michigan University,</b> 2025</li>
+                    </ul>
+                    <ul class="lead">
+                        <li><b>Centralis Gold Award, Central Michigan University Honors Program,</b> 2020</li>
                     </ul>
                 </div>
 
@@ -188,6 +296,22 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+      (function () {
+        var toggle = document.getElementById('themeToggle');
+        function render(theme) {
+            toggle.textContent = theme === 'dark' ? '🌙 Dark' : '☀️ Light';
+        }
+        render(document.documentElement.getAttribute('data-theme'));
+        toggle.addEventListener('click', function () {
+            var current = document.documentElement.getAttribute('data-theme');
+            var next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            render(next);
+        });
+      })();
+    </script>
 </body>
 
 </html>
